@@ -17,5 +17,24 @@ model User {
   id       Int    @id @default(autoincrement())
   login    String @unique
   password String
+
+  files    File[]
 }
 
+model File {
+  id                 String   @id @default(uuid())
+  name               String
+  preservationDate   DateTime
+  preservationStatus String
+  area               String
+  documentOrigin     String
+  version            String
+  keywords           String[]
+  ownerId            Int
+
+  archivematicaSipId String?  
+  archivematicaAipId String?  
+  storagePath        String?  
+
+  owner              User     @relation(fields: [ownerId], references: [id])
+}

@@ -1,0 +1,66 @@
+/* HomeScreenTable.module.css */
+.pagination-btn {
+  background-color: #444;
+  color: #fff;
+  border: 1px solid #444;
+  padding: 8px 16px;
+  margin: 0 4px;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+.pagination-btn:focus,
+.pagination-btn:hover {
+  background-color: #555;
+  color: #fff;
+  border-color: #555;
+  transform: scale(1.05);
+  outline: none !important;
+}
+
+.pagination-btn:active {
+  background-color: #333333;
+  transform: scale(1);
+}
+
+.pagination-btn.disabled {
+  background-color: #333333;
+  color: #666;
+  cursor: not-allowed;
+}
+
+.status-badge {
+  display: inline-block;
+  padding: 4px 10px;
+  border-radius: 20px;
+  font-size: 0.75rem;
+  font-weight: bold;
+  text-align: center;
+  min-width: 100px; 
+  box-sizing: border-box;
+  color: #fff;
+  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.4); 
+  user-select: none;
+}
+
+
+.status-preservado {
+  background-color: rgba(
+    144,
+    238,
+    144,
+    0.8
+  ); 
+}
+
+.status-iniciada {
+  background-color: rgba(
+    255,
+    179,
+    107,
+    0.6
+  );
+}
+
+.status-falha {
+  background-color: rgb(225, 106, 84, 0.6);
+}

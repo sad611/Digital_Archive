@@ -3,6 +3,8 @@ import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import LoginScreen from './components/LoginScreen/LoginScreen';
 import { CssBaseline, ThemeProvider, createTheme } from '@mui/material';
 import { SnackbarProvider } from 'notistack';
+import HomeScreen from './components/HomeScreen/HomeScreen';
+import 'bootstrap/dist/css/bootstrap.min.css';
 
 
 const darkTheme = createTheme({
@@ -24,6 +26,7 @@ function App() {
           <div className="App" style={{ minHeight: '100vh', background: '#121212' }}>
             <Routes>
               <Route path="/" element={<LoginScreen />} />
+              <Route path="/home" element={<HomeScreen />} />
               <Route path="*" element={<LoginScreen />} />
             </Routes>
           </div>

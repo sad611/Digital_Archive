@@ -9,8 +9,9 @@ import {
 } from "@mui/material";
 import { Person, Lock, Visibility, VisibilityOff } from "@mui/icons-material";
 import styles from "./LoginScreen.module.css";
-import { SnackbarKey, SnackbarProvider, useSnackbar } from "notistack";
+import { useSnackbar } from "notistack";
 import SnackBarAction from "../snackbar/SnackBarAction";
+import { loginUser, registerUser } from "../../services/authService";
 
 const LoginScreen = () => {
   const [login, setLogin] = useState("");
@@ -18,37 +19,12 @@ const LoginScreen = () => {
   const [showPassword, setShowPassword] = useState(false);
   const [loginError, setLoginError] = useState(false);
 
-  const { enqueueSnackbar, closeSnackbar } = useSnackbar();
-
-  const registerUser = async (login: string, password: string) => {
-    const response = await fetch(`${process.env.REACT_APP_API_URL}/register`, {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ login, password }),
-    });
-
-    if (!response.ok) {
-      const error = await response.json();
-      setLoginError(true);
-      enqueueSnackbar(
-        <SnackBarAction type="error" title="Error" content={error.message} />
-      );
-      return;
-    }
-
-    enqueueSnackbar(
-      <SnackBarAction
-        type="success"
-        title="Success"
-        content="User registered successfully!"
-      />
-    );
-    return response.json();
-  };
+  const { enqueueSnackbar } = useSnackbar();
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    console.log("API URL:", process.env.REACT_APP_API_URL as string);
+
+    console.log(process.env.REACT_APP_API_URL);
 
     enqueueSnackbar(
       <SnackBarAction
@@ -57,7 +33,36 @@ const LoginScreen = () => {
         content="Please wait"
       />
     );
-    await registerUser(login, password);
+
+    try {
+    //   await registerUser(login, password);
+    //   enqueueSnackbar(
+    //     <SnackBarAction
+    //       type="success"
+    //       title="Success"
+    //       content="User registered successfully!"
+    //     />
+    //   );
+    // } catch (error: any) {
+    //   setLoginError(true);
+    //   enqueueSnackbar(
+    //     <SnackBarAction type="error" title="Error" content={error.message} />
+    //   );
+    // }
+      console.log(await loginUser(login, password));
+      enqueueSnackbar(
+        <SnackBarAction
+          type="success"
+          title="Success"
+          content="User logged in successfully!"
+        />
+      );
+    } catch (error: any) {
+      setLoginError(true);
+      enqueueSnackbar(
+        <SnackBarAction type="error" title="Error" content={error.message} />
+      );
+    }
   };
 
   return (
@@ -77,11 +82,13 @@ const LoginScreen = () => {
                 value={login}
                 onChange={(e) => {
                   setLogin(e.target.value);
-                  setLoginError(false); 
+                  setLoginError(false);
                 }}
                 error={loginError}
                 helperText={
-                  loginError ? "Login already exists or is invalid" : "Choose unique username."
+                  loginError
+                    ? "Login already exists or is invalid"
+                    : "Choose unique username."
                 }
                 InputProps={{
                   startAdornment: (

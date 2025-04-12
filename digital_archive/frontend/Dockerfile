@@ -5,7 +5,7 @@ RUN apk add --no-cache tini
 
 WORKDIR /app
 COPY package*.json ./
-ENV REACT_APP_API_URL=http://localhost:3000/api
+ENV REACT_APP_API_URL=http://localhost:3000
 RUN npm install
 # Don't COPY here; we'll bind-mount in compose
 EXPOSE 5173

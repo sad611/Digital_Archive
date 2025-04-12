@@ -1,12 +1,19 @@
-import { Module } from '@nestjs/common';
-import { AppController } from './app.controller';
-import { AppService } from './app.service';
-import { PrismaService } from './services/prisma/prisma.service';
-import { UserService } from './services/user/user.service';
+/* eslint-disable @typescript-eslint/no-unsafe-member-access */
+/* eslint-disable @typescript-eslint/no-unsafe-call */
+import { Module } from "@nestjs/common";
 
+import { ArchivematicaModule } from "./archivematica/archivematica.module";
+import { UserModule } from "./user/user.module";
+import { AuthModule } from "./auth/auth.module";
+import { JwtCoreModule } from "./jwt-core/jwt-core.module";
+import { ConfigModule } from "@nestjs/config";
 @Module({
-  imports: [],
-  controllers: [AppController],
-  providers: [AppService, PrismaService, UserService],
+  imports: [
+    ConfigModule.forRoot(),
+    JwtCoreModule,
+    AuthModule,
+    UserModule,
+    ArchivematicaModule,
+  ],
 })
 export class AppModule {}

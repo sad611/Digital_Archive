@@ -7,6 +7,140 @@ body {
   -moz-osx-font-smoothing: grayscale;
 }
 
+.bg-darker {
+  background-color: #212121 !important;
+}
+
+
+.table.bg-darker th,
+.table.bg-darker td {
+  background-color: #1e1e1e !important;
+  color: #e0e0e0;
+  border-color: #2c2c2c;
+  vertical-align: middle;
+  padding: 0.75rem 1rem;
+}
+
+.table.bg-darker thead th {
+  background-color: #151515 !important;
+  font-weight: 600;
+  color: #f0f0f0;
+  border-bottom: 2px solid #2f2f2f;
+}
+
+.table.bg-darker tbody tr {
+  transition: background-color 0.25s ease-in-out;
+}
+
+.table.bg-darker tbody tr:hover {
+  background-color: #2a2a2a !important;
+}
+
+.table.bg-darker .btn-outline-light {
+  border-color: #555;
+  color: #ccc;
+  transition: all 0.2s ease-in-out;
+}
+
+.table.bg-darker .btn-outline-light:hover {
+  background-color: #444;
+  border-color: #777;
+  color: #fff;
+}
+
+.table.bg-darker td {
+  white-space: nowrap;
+  max-width: 200px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+:root {
+  --sidebar-width: 200px;
+  --transition-speed: 0.3s;
+  --bg-dark: #1f2937;
+  --bg-darker: #111827;
+  --text-light: #f9fafb;
+  --card-radius: 0.75rem;
+  --spacing: 1rem;
+}
+
+.container-full {
+  height: 100%;
+  width: 100%;
+  display: flex;
+  background-color: var(--bg-dark);
+  color: var(--text-light);
+}
+
+.content-wrapper {
+  flex: 1;
+  margin-left: var(--sidebar-width);
+  transition: margin-left var(--transition-speed) ease-in-out;
+}
+
+.content-wrapper.collapsed {
+  margin-left: 0;
+}
+
+.sidebar {
+  width: var(--sidebar-width);
+  background-color: var(--bg-darker) !important;
+  border-radius: var(--card-radius);
+  transition: transform var(--transition-speed) ease-in-out;
+}
+
+.sidebar.collapsed {
+  transform: translateX(calc(-1 * var(--sidebar-width)));
+}
+
+.navbar-custom {
+  min-height: 8vh !important;
+  background-color: var(--bg-darker) !important;
+  border-radius: var(--card-radius);
+}
+
+.card-panel {
+  background-color: var(--bg-darker);
+  border-radius: var(--card-radius);
+  padding: var(--spacing);
+  margin-top: var(--spacing);
+  flex-grow: 1;
+}
+
+.table-panel {
+  background-color: var(--bg-darker);
+  border-radius: var(--card-radius);
+  padding: var(--spacing);
+  margin-top: var(--spacing);
+  flex-grow: 1;
+  overflow: auto;
+}
+
+.input-group-custom .form-control,
+.input-group-custom .input-group-text,
+.input-group-custom .btn {
+  background-color: var(--bg-darker);
+  color: var(--text-light);
+  border: 1px solid #374151;
+  border-radius: var(--card-radius);
+}
+
+/* .modal-backdrop.show {
+  backdrop-filter: blur(2px); 
+  background-color: rgba(0, 0, 0, 0.5); 
+} */
+
+
+html,
+body,
+#root {
+  height: 100%;
+  width: 100%;
+  margin: 0;
+  padding: 0;
+}
+
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;

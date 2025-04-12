@@ -1,0 +1,9 @@
+.navHeader {
+    display: flex;
+    justify-content: flex-end !important;
+}
+
+.homeContent {
+    flex: 1;
+    padding: 1rem;
+}

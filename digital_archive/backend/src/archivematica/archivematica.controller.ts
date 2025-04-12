@@ -1,9 +1,7 @@
 import { Controller, Get } from "@nestjs/common";
 
-@Controller("api")
-export class AppController {
-  constructor() {}
-
+@Controller("archivematica")
+export class ArchivematicaController {
   @Get()
   getHello(): string {
     return "Hello";
