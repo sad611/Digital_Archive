@@ -6,6 +6,8 @@ import {
   InputAdornment,
   Button,
   IconButton,
+  CircularProgress,
+  Typography,
 } from "@mui/material";
 import { Person, Lock, Visibility, VisibilityOff } from "@mui/icons-material";
 import styles from "./LoginScreen.module.css";
@@ -13,83 +15,77 @@ import { useSnackbar } from "notistack";
 import SnackBarAction from "../snackbar/SnackBarAction";
 import { loginUser, registerUser } from "../../services/authService";
 
+import Cookies from "js-cookie";
+
 const LoginScreen = () => {
   const [login, setLogin] = useState("");
   const [password, setPassword] = useState("");
   const [showPassword, setShowPassword] = useState(false);
   const [loginError, setLoginError] = useState(false);
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
   const { enqueueSnackbar } = useSnackbar();
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-
-    console.log(process.env.REACT_APP_API_URL);
+    setIsSubmitting(true);
+    setLoginError(false);
 
     enqueueSnackbar(
       <SnackBarAction
         type="info"
-        title="Registering..."
-        content="Please wait"
+        title="Authenticating..."
+        content="Verifying your credentials"
       />
     );
 
     try {
-    //   await registerUser(login, password);
-    //   enqueueSnackbar(
-    //     <SnackBarAction
-    //       type="success"
-    //       title="Success"
-    //       content="User registered successfully!"
-    //     />
-    //   );
-    // } catch (error: any) {
-    //   setLoginError(true);
-    //   enqueueSnackbar(
-    //     <SnackBarAction type="error" title="Error" content={error.message} />
-    //   );
-    // }
-      console.log(await loginUser(login, password));
+      await loginUser(login, password);
+
       enqueueSnackbar(
         <SnackBarAction
           type="success"
-          title="Success"
-          content="User logged in successfully!"
+          title="Welcome back!"
+          content="Logged in successfully."
         />
       );
     } catch (error: any) {
       setLoginError(true);
       enqueueSnackbar(
-        <SnackBarAction type="error" title="Error" content={error.message} />
+        <SnackBarAction
+          type="error"
+          title="Authentication Failed"
+          content={error.message || "Please check your login credentials."}
+        />
       );
+    } finally {
+      setIsSubmitting(false);
     }
   };
 
   return (
     <div className={styles.loginContainer}>
-      <Card className={styles.loginCard} elevation={6}>
+      <Card className={styles.loginCard} elevation={8}>
         <div className={styles.header}>
-          <h1 className={styles.title}>Create your account</h1>
+          <Typography variant="h4" className={styles.title}>
+            Login to your account
+          </Typography>
+          <Typography variant="body2" color="textSecondary">
+            Welcome back. Please enter your details.
+          </Typography>
         </div>
 
         <CardContent>
-          <form onSubmit={handleSubmit}>
+          <form onSubmit={handleSubmit} className={styles.form}>
             <div className={styles.formField}>
               <TextField
                 fullWidth
-                label="Login"
+                label="Username or Email"
                 variant="outlined"
                 value={login}
-                onChange={(e) => {
-                  setLogin(e.target.value);
-                  setLoginError(false);
-                }}
+                onChange={(e) => setLogin(e.target.value)}
                 error={loginError}
-                helperText={
-                  loginError
-                    ? "Login already exists or is invalid"
-                    : "Choose unique username."
-                }
+                helperText={loginError ? "Invalid credentials." : ""}
                 InputProps={{
                   startAdornment: (
                     <InputAdornment position="start">
@@ -97,7 +93,6 @@ const LoginScreen = () => {
                     </InputAdornment>
                   ),
                 }}
-                className={styles.inputField}
               />
             </div>
 
@@ -120,13 +115,13 @@ const LoginScreen = () => {
                       <IconButton
                         onClick={() => setShowPassword(!showPassword)}
                         edge="end"
+                        aria-label="toggle password visibility"
                       >
                         {showPassword ? <VisibilityOff /> : <Visibility />}
                       </IconButton>
                     </InputAdornment>
                   ),
                 }}
-                className={styles.inputField}
               />
             </div>
 
@@ -136,8 +131,10 @@ const LoginScreen = () => {
               size="large"
               type="submit"
               className={styles.loginButton}
+              disabled={isSubmitting}
+              startIcon={isSubmitting && <CircularProgress size={20} />}
             >
-              Register
+              {isSubmitting ? "Logging in..." : "Login"}
             </Button>
           </form>
         </CardContent>
