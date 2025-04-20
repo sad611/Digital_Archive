@@ -37,9 +37,7 @@ export class AuthController {
     const { login, password } = data;
 
     if (!login || !password) {
-      throw new BadRequestException(
-        "Login and password query parameter is required.",
-      );
+      throw new BadRequestException("Login and password is required.");
     }
 
     try {

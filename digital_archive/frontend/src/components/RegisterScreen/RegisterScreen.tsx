@@ -67,17 +67,15 @@ const RegisterScreen = () => {
 
       navigate("/home");
     } catch (error: any) {
-      if (error.message === "Login already exists.") {
-        setRegisterError(true);
+      setRegisterError(true);
 
-        enqueueSnackbar(
-          <SnackBarAction
-            type="error"
-            title="Registration Failed"
-            content={error.message || "Please try again."}
-          />
-        );
-      }
+      enqueueSnackbar(
+        <SnackBarAction
+          type="error"
+          title="Registration Failed"
+          content={error.message || "Please try again."}
+        />
+      );
     } finally {
       setIsSubmitting(false);
     }
