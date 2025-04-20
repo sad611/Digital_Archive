@@ -40,9 +40,6 @@ const SideBar: React.FC<SideBarProps> = ({ show, onHide, onToggle }) => {
           )}
         </Offcanvas.Header>
         <Offcanvas.Body>
-          <p>Navigation Links</p>
-          <p>Settings</p>
-          <p>Other Options</p>
         </Offcanvas.Body>
       </Offcanvas>
     </>

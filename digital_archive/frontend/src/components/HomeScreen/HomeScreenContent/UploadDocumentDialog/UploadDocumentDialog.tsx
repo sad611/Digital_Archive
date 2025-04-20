@@ -51,9 +51,9 @@ const UploadDocumentDialog: React.FC<UploadModalProps> = ({
       <Modal.Header closeButton className="text-light bg-darker border-0">
         <Modal.Title>Upload New Document</Modal.Title>
       </Modal.Header>
-      <Modal.Body className="bg-darker text-light">
+      <Modal.Body className="bg-darker text-light gap-2">
         <Form noValidate validated={validated} onSubmit={handleSubmit}>
-          <Form.Group className="mb-3" controlId="formFile">
+          <Form.Group className="gap" controlId="formFile">
             <Form.Label className="text-light">PDF File</Form.Label>
             <Form.Control
               type="file"
@@ -75,7 +75,7 @@ const UploadDocumentDialog: React.FC<UploadModalProps> = ({
             </Form.Control.Feedback>
           </Form.Group>
 
-          <Row className="mb-3">
+          <Row>
             <Form.Group controlId="formArea">
               <Form.Label className="text-light">Area</Form.Label>
               <Form.Control
@@ -105,7 +105,7 @@ const UploadDocumentDialog: React.FC<UploadModalProps> = ({
             </Form.Group>
           </Row>
 
-          <Row className="mb-3">
+          <Row>
             <Form.Group controlId="formVersion">
               <Form.Label className="text-light">Version</Form.Label>
               <Form.Control

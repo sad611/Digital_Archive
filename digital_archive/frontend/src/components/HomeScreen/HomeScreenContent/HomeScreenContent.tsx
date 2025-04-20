@@ -14,56 +14,55 @@ interface HomeScreenContentProps {
 const mockFiles: File[] = [
   {
     id: "1",
-    name: "documento_1.pdf",
+    name: "documento.pdf",
     preservationDate: new Date("2024-01-15"),
     preservationStatus: "Preservado",
     area: "Jurídico",
     documentOrigin: "Sistema Interno",
     version: "1.0",
-    keywords: ["contrato", "confidencial", "cliente"]
+    keywords: ["contrato", "confidencial", "cliente"],
   },
   {
     id: "2",
-    name: "relatorio_financeiro.xlsx",
+    name: "relatorio_financeiro.pdf",
     preservationDate: new Date("2023-12-01"),
     preservationStatus: "Falha",
     area: "Financeiro",
     documentOrigin: "Planilha Externa",
     version: "2.3",
-    keywords: ["financeiro", "relatório", "mensal"]
+    keywords: ["financeiro", "relatório", "mensal"],
   },
   {
     id: "3",
-    name: "apresentacao_ano_novo.pptx",
+    name: "apresentacao.pdf",
     preservationDate: new Date("2024-03-10"),
     preservationStatus: "Iniciada",
     area: "Marketing",
     documentOrigin: "Drive",
     version: "0.9",
-    keywords: ["apresentação", "campanha", "marketing"]
+    keywords: ["apresentação", "campanha", "marketing"],
   },
   {
     id: "4",
-    name: "registro_colaboradores.csv",
+    name: "colaboradores.pdf",
     preservationDate: new Date("2024-02-25"),
     preservationStatus: "Preservado",
     area: "Recursos Humanos",
     documentOrigin: "RH Digital",
     version: "1.2",
-    keywords: ["funcionários", "dados", "registro"]
+    keywords: ["funcionários", "dados", "registro"],
   },
   {
     id: "5",
-    name: "manual_tecnico.docx",
+    name: "manual_tecnico.pdf",
     preservationDate: new Date("2024-01-05"),
     preservationStatus: "Preservado",
     area: "TI",
     documentOrigin: "Documentação Técnica",
     version: "3.1",
-    keywords: ["manual", "sistema", "configuração"]
-  }
+    keywords: ["manual", "sistema", "configuração"],
+  },
 ];
-
 
 const HomeScreenContent: React.FC<HomeScreenContentProps> = ({
   show,
@@ -75,6 +74,7 @@ const HomeScreenContent: React.FC<HomeScreenContentProps> = ({
   const handleSubmit = (data: any) => {
     console.log("Submitted:", data);
   };
+  const pdfUrl = "http://localhost:3000/archivematica/files";
 
   return (
     <div className="d-flex flex-column vh-100 px-1">

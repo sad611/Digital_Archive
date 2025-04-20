@@ -13,11 +13,12 @@ import { Person, Lock, Visibility, VisibilityOff } from "@mui/icons-material";
 import styles from "./LoginScreen.module.css";
 import { useSnackbar } from "notistack";
 import SnackBarAction from "../snackbar/SnackBarAction";
-import { loginUser, registerUser } from "../../services/authService";
+import { loginUser } from "../../services/authService";
 
-import Cookies from "js-cookie";
+import { useNavigate } from "react-router-dom";
 
 const LoginScreen = () => {
+  const navigate = useNavigate();
   const [login, setLogin] = useState("");
   const [password, setPassword] = useState("");
   const [showPassword, setShowPassword] = useState(false);
@@ -49,6 +50,8 @@ const LoginScreen = () => {
           content="Logged in successfully."
         />
       );
+
+      navigate("/home");
     } catch (error: any) {
       setLoginError(true);
       enqueueSnackbar(
@@ -125,17 +128,29 @@ const LoginScreen = () => {
               />
             </div>
 
-            <Button
-              fullWidth
-              variant="contained"
-              size="large"
-              type="submit"
-              className={styles.loginButton}
-              disabled={isSubmitting}
-              startIcon={isSubmitting && <CircularProgress size={20} />}
-            >
-              {isSubmitting ? "Logging in..." : "Login"}
-            </Button>
+            <div className={styles.buttonGroupRegister} role="group">
+              <Button
+                fullWidth
+                variant="contained"
+                size="large"
+                type="submit"
+                className={styles.loginButton}
+                disabled={isSubmitting}
+                startIcon={isSubmitting && <CircularProgress size={20} />}
+              >
+                {isSubmitting ? "Logging in..." : "Login"}
+              </Button>
+
+              <Button
+                fullWidth
+                variant="contained"
+                size="large"
+                className={styles.registerButton}
+                onClick={() => navigate("/register")}
+              >
+                Sign up
+              </Button>
+            </div>
           </form>
         </CardContent>
       </Card>

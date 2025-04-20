@@ -1,0 +1,3 @@
+[submodule "digital_archive/archivematica"]
+	path = digital_archive/archivematica
+	url = https://github.com/artefactual/archivematica.git

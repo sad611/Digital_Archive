@@ -1,7 +1,9 @@
 import React, { useState } from "react";
-import { Button, ButtonGroup, Table } from "react-bootstrap";
+import { Table } from "react-bootstrap";
 import { File } from "../../../../models/File";
 import styles from "./HomeScreenTable.module.css";
+import PdfJs from "../../../PdfViewer/PdfViewer";
+import { downloadFileFromServer } from "../../../../services/downloadService";
 
 interface HomeScreenTableProps {
   files: File[];
@@ -16,6 +18,11 @@ const statusStyles = {
 const HomeScreenTable: React.FC<HomeScreenTableProps> = ({ files }) => {
   const itemsPerPage = 5;
   const [currentPage, setCurrentPage] = useState(1);
+  const [showPdfDialog, setShowPdfDialog] = useState(false);
+
+  const [selectedFileName, setSelectedFileName] = useState("");
+  const pdfUrl = "http://localhost:3000/archivematica/files";
+
   const totalPages = Math.ceil(files.length / itemsPerPage);
   console.log(totalPages);
 
@@ -27,6 +34,10 @@ const HomeScreenTable: React.FC<HomeScreenTableProps> = ({ files }) => {
   const handlePageChange = (page: number) => {
     setCurrentPage(page);
   };
+
+  function downloadFile(name: string): void {
+    downloadFileFromServer(name);
+  }
 
   return (
     <div className="d-flex flex-column bg-darker text-light my-3 rounded-4 shadow-sm p-4 overflow-auto">
@@ -92,11 +103,23 @@ const HomeScreenTable: React.FC<HomeScreenTableProps> = ({ files }) => {
                   <td className="text-truncate">{file.version}</td>
                   <td className="text-truncate">{file.keywords.join(", ")}</td>
                   <td>
-                    <button
-                      className={`${styles["pagination-btn"]} text-light px-3 rounded-pill shadow-none`}
-                    >
-                      Open
-                    </button>
+                    <div className="d-flex gap-2">
+                      <button
+                        onClick={() => {
+                          setSelectedFileName(file.name);
+                          setShowPdfDialog(true);
+                        }}
+                        className={`${styles["pagination-btn"]} text-light px-3 rounded-pill shadow-none`}
+                      >
+                        Open
+                      </button>
+                      <button
+                        onClick={() => downloadFile(file.name)}
+                        className={`${styles["pagination-btn"]} text-light px-3 rounded-pill shadow-none`}
+                      >
+                        Download
+                      </button>
+                    </div>
                   </td>
                 </tr>
               ))}
@@ -105,7 +128,6 @@ const HomeScreenTable: React.FC<HomeScreenTableProps> = ({ files }) => {
         </div>
       </div>
 
-      {/* Pagination Controls */}
       <nav className="mt-3">
         <div className="d-flex justify-content-center">
           <div className="d-flex flex-wrap gap-1 justify-content-center">
@@ -148,6 +170,39 @@ const HomeScreenTable: React.FC<HomeScreenTableProps> = ({ files }) => {
           </div>
         </div>
       </nav>
+      {showPdfDialog && selectedFileName && (
+        <div
+          className="position-fixed top-0 start-0 w-100 h-100 d-flex justify-content-center align-items-center"
+          style={{ backgroundColor: "rgba(0,0,0,0.6)", zIndex: 1050 }}
+        >
+          <div
+            className="bg-dark rounded-4 shadow-lg d-flex flex-column"
+            style={{ width: "80%", height: "85%" }}
+          >
+            <div className="d-flex justify-content-end gap-2 p-2 border-bottom border-secondary">
+              <button
+                className={`${styles["pagination-btn"]} text-light px-3 rounded-pill shadow-none btn btn-sm`}
+                onClick={() => downloadFile(selectedFileName)}
+              >
+                Download
+              </button>
+              <button
+                className={`${styles["pagination-btn"]} text-light px-3 rounded-pill shadow-none btn btn-sm`}
+                onClick={() => setShowPdfDialog(false)}
+              >
+                Close
+              </button>
+            </div>
+            <div className="flex-grow-1 overflow-auto">
+              <PdfJs
+                src={`${
+                  process.env.REACT_APP_API_URL
+                }/archivematica/files/${encodeURIComponent(selectedFileName)}`}
+              />
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 };

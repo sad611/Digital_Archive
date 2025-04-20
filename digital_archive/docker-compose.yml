@@ -1,41 +1,4 @@
 services:
-  archivematica-mcp-server:
-    image: artefactual/archivematica-mcp-server:latest
-    environment:
-      - AM_HOSTNAME=archivematica
-    depends_on:
-      - archivematica-storage-service
-      - gearman
-    ports:
-      - "62080:62080"
-
-  archivematica-mcp-client:
-    image: artefactual/archivematica-mcp-client:latest
-    depends_on:
-      - archivematica-mcp-server
-      - gearman
-
-  archivematica-dashboard:
-    image: artefactual/archivematica-dashboard:latest
-    ports:
-      - "62081:62081"
-    depends_on:
-      - archivematica-mcp-client
-
-  archivematica-storage-service:
-    image: artefactual/archivematica-storage-service:latest
-    ports:
-      - "62082:62082"
-    environment:
-      SS_DB_HOST: postgresql
-      SS_DB_NAME: storage_service
-      SS_DB_USER: root
-      SS_DB_PASS: password
-
-  gearman:
-    image: artefactual/gearman:latest
-    ports:
-      - "4730:4730"
   db:
     image: postgres:15
     container_name: postgres

@@ -1,6 +1,6 @@
 import Cookies from "js-cookie";
 import { useSnackbar } from "notistack";
-import { JSX, useEffect } from "react";
+import { JSX, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 
 const AuthRedirect = ({ children }: { children: JSX.Element }) => {
@@ -9,7 +9,11 @@ const AuthRedirect = ({ children }: { children: JSX.Element }) => {
 
   useEffect(() => {
     const token = Cookies.get("jwt_token");
-    if (!token) return;
+
+    if (!token) {
+      navigate("/");
+      return;
+    }
 
     const validateToken = async () => {
       try {
@@ -26,6 +30,7 @@ const AuthRedirect = ({ children }: { children: JSX.Element }) => {
 
         const data = await response.json();
         if (data.message === "Token is valid") {
+
           navigate("/home");
         } else {
           throw new Error("Token invalid");
@@ -34,13 +39,13 @@ const AuthRedirect = ({ children }: { children: JSX.Element }) => {
         Cookies.remove("jwt_token");
         enqueueSnackbar("Session expired. Please log in again.", { variant: "error" });
         navigate("/");
-      }
+      } 
     };
 
     validateToken();
   }, [navigate, enqueueSnackbar]);
 
-  return children;
+  return children; 
 };
 
 export default AuthRedirect;

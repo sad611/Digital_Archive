@@ -1,3 +1,4 @@
+/* eslint-disable react/jsx-no-undef */
 import { useState } from "react";
 import SideBar from "./SideBar/SideBar";
 import HomeScreenContent from "./HomeScreenContent/HomeScreenContent";
@@ -18,7 +19,7 @@ const HomeScreen: React.FC = () => {
           transition: "margin-left 0.3s ease-in-out",
         }}
       >
-        <HomeScreenContent show={show} onShow={() => setShow(true)} />
+        <HomeScreenContent show={show} onShow={() => setShow(true)} /> 
       </div>
     </div>
   );
