@@ -38,8 +38,8 @@ A comunicação entre os serviços ocorre dentro da rede Docker. A aplicação e
 
 1. Clone o repositório:
    ```bash
-   git clone <seu-repo>
-   cd <seu-repo>
+   git clone https://github.com/sad611/Digital_Archive.git
+   cd cd Digital_Archive/digital_archive/
    ```
 
 2. Ajuste os arquivos `.env` conforme necessário (veja a seção abaixo).
