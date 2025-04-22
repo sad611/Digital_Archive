@@ -2,7 +2,7 @@
 
 > ⚠️ **Observações importantes**:
 > 
-> - A **integração com o Archivematica** não foi realizada com sucesso. Apesar das tentativas de configuração, não foi possível realizar transferências nem mesmo pelo dashboard do Archivematica.
+> - A **integração com o Archivematica** não foi realizada com sucesso. Apesar das minhas tentativas de configuração, não foi possível realizar transferências nem mesmo pelo dashboard do Archivematica, rodava infinitamente a transferência do documento. Devido ao tempo que gastei tentando fazer funcionar, decidi por abandonar e focar um pouco mais nos outros requisitos
 > - A funcionalidade de **upload de arquivos na tela "Home"** ainda **não está implementada**.
 > - A **visualização e o download de PDFs** estão sendo feitos de forma **estática**, a partir do diretório `public/docs` no backend.
 
@@ -15,7 +15,6 @@ Este projeto é uma aplicação **full-stack** composta por:
   - Usa JWT para autenticação
   - Expõe uma API REST
 - **Front-end:** [React CRA (Create React App)](https://create-react-app.dev/)  
-  - Interface de usuário moderna
   - Comunicação com a API via `REACT_APP_API_URL`
 - **Banco de dados:** PostgreSQL 15  
 - **Gerenciamento de containers:** Docker + Docker Compose
