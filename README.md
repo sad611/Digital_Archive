@@ -2,7 +2,7 @@
 
 > ⚠️ **Observações importantes**:
 > 
-> - A **integração com o Archivematica** não foi realizada com sucesso. Apesar das minhas tentativas de configuração, não foi possível realizar transferências nem mesmo pelo dashboard do Archivematica, rodava infinitamente a transferência do documento. Devido ao tempo que gastei tentando fazer funcionar, decidi por abandonar e focar um pouco mais nos outros requisitos
+> -  integração com o Archivematica não funcionou como esperado. Tentei várias configurações, mas não consegui realizar nenhuma transferência, nem pelo próprio dashboard, o processo de transferência ficava travado, rodando infinitamente. Depois de gastar bastante tempo nisso, decidi deixar essa parte de lado e focar nos outros requisitos do projeto (Oque não sobrou muito tempo).
 > - A funcionalidade de **upload de arquivos na tela "Home"** ainda **não está implementada**.
 > - A **visualização e o download de PDFs** estão sendo feitos de forma **estática**, a partir do diretório `public/docs` no backend.
 
